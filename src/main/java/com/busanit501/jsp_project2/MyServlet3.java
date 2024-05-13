@@ -29,10 +29,10 @@ public class MyServlet3 extends HttpServlet {
         // 서버 -> 웹브라우저에 전달하고 싶은 내용을 출력,
         // 자바, 콘솔 출력시, syso -> System.out.println("hello").
         // PrintWriter, 출력 도구.
-        PrintWriter out = response.getWriter();
+        PrintWriter outresponse.getWriter();
         // 수납도구에 , html 태그를 입력하기.
         out.println("<html><body>");
         out.println("<h1>" + "MyServlet3" + "</h1>");
-        out.println("</body></html>");
+        out.println("</body></html>"); =
     }
 }
