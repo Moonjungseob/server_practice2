@@ -26,6 +26,14 @@ dependencies {
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+   //jstl
+    implementation group: 'jstl', name: 'jstl', version: '1.2'
+
+    //마리아 db 드라이버 설치.
+    // https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '3.3.3'
+
+
 }
 
 test {
