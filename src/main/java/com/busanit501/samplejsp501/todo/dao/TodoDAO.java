@@ -1,10 +1,10 @@
 package com.busanit501.samplejsp501.todo.dao;
 
 import com.busanit501.samplejsp501.todo.domain.TodoVO;
-
 import lombok.Cleanup;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -35,14 +35,14 @@ public class TodoDAO {
         while (resultSet.next()) {
             //기존에는 set를 이용해서 담는 방법
             //임시 TodoVO에 담기 -> 다시 임시 목록에 담기
-            TodoVO todoVO = new TodoVO();
+//            TodoVO todoVO = new TodoVO();
             //resultSet.getLong("tno") 디비에서 조회한 내용
-            todoVO.setTno(resultSet.getLong("tno"));
-            todoVO.setTitle(resultSet.getNString("title"));
-            todoVO.setDueDate(resultSet.getDate("dueDate").toLocalDate());
-            todoVO.setFinished(resultSet.getBoolean("finished"));
+//            todoVO.setTno(resultSet.getLong("tno"));
+//            todoVO.setTitle(resultSet.getNString("title"));
+//            todoVO.setDueDate(resultSet.getDate("dueDate").toLocalDate());
+//            todoVO.setFinished(resultSet.getBoolean("finished"));
             //리스트에 담기
-            samples.add(todoVO);
+//            samples.add(todoVO);
 
 
             //builder 방법
@@ -82,10 +82,51 @@ public class TodoDAO {
     }
 
     //쓰기
+    //화면에서 받았다 치고, 현재는 더미로 넣기 연습.
+    //임시로 저장할 모델 DTO -> VO 변환 -> VO를 해당 데이터베이스 입력.
+    //현재 단계에서는 DAO는 직접적인 DB에 넣는 타입은 VO로 진행함
+    public void insert(TodoVO vo)throws Exception{
+        String sql = "insert into tbl_todo (title, dueDate, finished) values (?,?,?)";
+        //1)
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        pstmt.setString(1,vo.getTitle());
+        //vo.getDueDate() : LocalDate
+        //Date.valueOf 메서드의 결과 타입 Date로 변환함.
+        pstmt.setDate(2, Date.valueOf(vo.getDueDate()));
+        pstmt.setBoolean(3, vo.isFinished());
+        //select 조회 할대, pstmt.executeQuery();
+        //inset, update, delete 할때는  pstmt.executeUpdate();
+//        int result = pstmt.executeUpdate();
+        pstmt.executeUpdate();
+
+    }
 
     //수정
+    //수정 폼에서 수장하고 싶은 데이터 임시 모델에 담기 -> TodoVO todoVO
+    public void update(TodoVO todoVO)throws Exception{
+        String sql = "update tbl_todo set finished = ?, title = ?, dueDate = ? where tno = ?;";
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+        // 임시 모델에 담겨진 변경할 데이터의 내용을 가져와서, 디비에 전달 할 예정.
+        pstmt.setBoolean(1,todoVO.isFinished());
+        pstmt.setString(2,todoVO.getTitle());
+        pstmt.setDate(3, Date.valueOf(todoVO.getDueDate()));
+        pstmt.setLong(4,todoVO.getTno());
+        pstmt.executeUpdate();
+    }
 
     //삭제
+    public void delete(long tno)throws Exception{
+        String sql = "delete from tbl_todo where tno = ?";
+
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        pstmt.setLong(1, tno);
+        pstmt.executeUpdate();
+    }
 
 
 

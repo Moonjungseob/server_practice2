@@ -4,6 +4,7 @@ import com.busanit501.samplejsp501.todo.domain.MenuVO;
 import lombok.Cleanup;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -38,4 +39,55 @@ public class MenuDAO {
         }
         return samples;
     }
+    public MenuVO selectOne(long menuNo)throws Exception{
+        String sql = "select * from lunchmenu where menuNo = ?";
+        //1)
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        pstmt.setLong(1, menuNo);
+        @Cleanup ResultSet resultSet = pstmt.executeQuery();
+        resultSet.next();
+        //임시로 담을 인스턴스 builder
+        //데이터 베이스에서 조회한 1개의 행을 넣기
+        MenuVO menuVO = MenuVO.builder()
+                .MenuNo(resultSet.getLong("menuNo"))
+                .MenuTitle(resultSet.getNString("menuTitle"))
+                .MenuRegDate(resultSet.getDate("menuRegDate").toLocalDate())
+                .build();
+        return menuVO;
+    }
+    public void insert(MenuVO vo)throws Exception{
+        String sql = "insert into lunchmenu (menuTitle, menuRegDate) values (?,?)";
+        //1)
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+
+        pstmt.setString(1,vo.getMenuTitle());
+        //vo.getDueDate() : LocalDate
+        //Date.valueOf 메서드의 결과 타입 Date로 변환함.
+        pstmt.setDate(2, Date.valueOf(vo.getMenuRegDate()));
+        pstmt.executeUpdate();
+
+    }
+    public void update(MenuVO menuVO)throws Exception{
+        String sql = "update lunchmenu set menuTitle = ?, menuRegDate = ? where menuNo = ?;";
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+        // 임시 모델에 담겨진 변경할 데이터의 내용을 가져와서, 디비에 전달 할 예정.
+
+        pstmt.setString(1,menuVO.getMenuTitle());
+        pstmt.setDate(2, Date.valueOf(menuVO.getMenuRegDate()));
+        pstmt.setLong(3,menuVO.getMenuNo());
+        pstmt.executeUpdate();
+    }
+
+    public void delete(long menuNo)throws Exception{
+        String sql = "delete from lunchmenu where menuNo = ?";
+        @Cleanup Connection conn = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement pstmt = conn.prepareStatement(sql);
+        pstmt.setLong(1, menuNo);
+        pstmt.executeUpdate();
+    }
+
 }
