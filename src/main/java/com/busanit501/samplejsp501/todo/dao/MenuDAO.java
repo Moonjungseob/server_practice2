@@ -29,9 +29,9 @@ public class MenuDAO {
 
         while (resultSet.next()) {
             MenuVO menuVOBuilder = MenuVO.builder()
-                    .MenuNo(resultSet.getLong("menuNo"))
-                    .MenuTitle(resultSet.getString("menuTitle"))
-                    .MenuRegDate(resultSet.getDate("menuRegDate").toLocalDate())
+                    .menuNo(resultSet.getLong("menuNo"))
+                    .menuTitle(resultSet.getString("menuTitle"))
+                    .menuRegDate(resultSet.getDate("menuRegDate").toLocalDate())
                     .build();
             //리스트에 담기
             samples.add(menuVOBuilder);
@@ -51,9 +51,9 @@ public class MenuDAO {
         //임시로 담을 인스턴스 builder
         //데이터 베이스에서 조회한 1개의 행을 넣기
         MenuVO menuVO = MenuVO.builder()
-                .MenuNo(resultSet.getLong("menuNo"))
-                .MenuTitle(resultSet.getNString("menuTitle"))
-                .MenuRegDate(resultSet.getDate("menuRegDate").toLocalDate())
+                .menuNo(resultSet.getLong("menuNo"))
+                .menuTitle(resultSet.getNString("menuTitle"))
+                .menuRegDate(resultSet.getDate("menuRegDate").toLocalDate())
                 .build();
         return menuVO;
     }

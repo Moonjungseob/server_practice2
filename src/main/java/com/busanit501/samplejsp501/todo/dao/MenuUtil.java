@@ -9,6 +9,7 @@ public enum MenuUtil {
     INSTANCE;
     private HikariDataSource dataSource;
 
+
     //생성자
     MenuUtil(){
         HikariConfig config = new HikariConfig();
