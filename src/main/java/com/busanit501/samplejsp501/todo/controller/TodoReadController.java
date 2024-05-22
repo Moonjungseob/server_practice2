@@ -6,6 +6,7 @@ import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,14 +25,71 @@ public class TodoReadController extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     try {
+      //db에서 가져오기
       Long tno = Long.valueOf(req.getParameter("tno"));
       TodoDTO sample = todoService.getSelectOne(tno);
       log.info("TodoListController , 확인2, sample : " + sample);
+
+      //화면에 전달하기
       req.setAttribute("sample", sample);
+
+      //쿠기 찾기.
+      //findCookie 메서드 첫번째 파라미터 : 쿠키의 전체 목록
+      //두번 째 파라미터 내가 찾고자 하는 쿠키의 키 이름
+      //findCookie 메서드 역할 전체 쿠키 목록중에서 키 이름 : viewTodos 해당하는 쿠키 찾기
+      Cookie viewTodoCookie = findCookie(req.getCookies(),"viewTodos");
+      //쿠키의 키의 대한 값을 가졍는 코드
+      //todoListResult -> 모양>? -? 값 : 1-4-7
+      String todoListResult = viewTodoCookie.getValue();
+      //상태 변수 존재여부
+      boolean exist = false;
+
+      //str = "hello" str.indexOf("e")
+      //tno+"-" -> 1-3-5
+
+      if (todoListResult != null && todoListResult.indexOf(tno+"-") >=0) {
+        exist = true;
+      }
+      //exist가 false 이면 동작함
+      //아래 코드 동작 할려면 최근에 본 내용이 쿠키에 저장이 안되어있다는 말
+      if (!exist) {
+        //쿠키에 값 추가 예) "1-"
+        todoListResult +=tno+"-";
+        //쿠키의 값을 설정 setter
+        viewTodoCookie.setValue(todoListResult);
+        //쿠키의 생존 주기 하루
+        viewTodoCookie.setMaxAge(60*60*24);
+        //해당 쿠키의 적용 범위. /todo/list
+         viewTodoCookie.setPath("/");
+        resp.addCookie(viewTodoCookie);
+      }
+
+
       req.getRequestDispatcher("/WEB-INF/todo/todoRead.jsp")
               .forward(req, resp);
     } catch (Exception e) {
       throw new RuntimeException(e);
     }
-  }
+
+  }//doGet
+  private Cookie findCookie(Cookie[] cookies, String cookieName){
+    //찾은 쿠키를 담을 임시 쿠키
+    Cookie targetCookie = null;
+
+    if(cookies !=null && cookies.length >0){
+      for(Cookie cookie : cookies){
+        if(cookie.getName().equals(cookieName)){
+          targetCookie = cookie;
+          break;
+        }
+      }//if 조건문
+    }
+    if(targetCookie == null){
+      targetCookie = new Cookie(cookieName, "");
+      targetCookie.setPath("/");
+      targetCookie.setMaxAge(60*60*24);
+
+    }
+    return targetCookie;
+  }//find Cookie 닫는 부분
 }
