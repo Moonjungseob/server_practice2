@@ -29,6 +29,24 @@ public class MemberDAOTest {
         //디비 콘솔에서 확인해보기
 
     }
+    @Test
+    public void selectUUID() throws Exception {
+       MemberVO memberVO = memberDAO.selectUUID("c9267389-8e15-4707-b3dc-1fd5b1f3fc8b");
+        log.info("memberVO : " + memberVO);
+        //디비 콘솔에서 확인해보기
+
+    }
+    @Test
+    public void insertMember() throws Exception {
+        MemberVO memberVO = MemberVO.builder()
+                .mid("lsy0523")
+                .mpw("1234")
+                .mname("이상용0523")
+                .build();
+                memberDAO.insertMember(memberVO);
+        //디비 콘솔에서 확인해보기
+
+    }
 
 
 }

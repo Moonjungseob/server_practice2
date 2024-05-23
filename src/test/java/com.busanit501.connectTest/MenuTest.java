@@ -1,7 +1,7 @@
 package com.busanit501.connectTest;
 
-import com.busanit501.samplejsp501.todo.dao.MenuDAO;
-import com.busanit501.samplejsp501.todo.domain.MenuVO;
+import com.busanit501.samplejsp501.lunch.dao.MenuDAO;
+import com.busanit501.samplejsp501.lunch.doamin.MenuVO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

@@ -1,7 +1,7 @@
 package com.busanit501.samplejsp501.lunch;
 
-import com.busanit501.samplejsp501.todo.dto.MenuDTO;
-import com.busanit501.samplejsp501.todo.service.MenuService;
+import com.busanit501.samplejsp501.lunch.dto.MenuDTO;
+import com.busanit501.samplejsp501.lunch.service.MenuService;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;

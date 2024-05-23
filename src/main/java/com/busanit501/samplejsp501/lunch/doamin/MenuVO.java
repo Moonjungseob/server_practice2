@@ -1,4 +1,4 @@
-package com.busanit501.samplejsp501.todo.domain;
+package com.busanit501.samplejsp501.lunch.doamin;
 
 import lombok.*;
 

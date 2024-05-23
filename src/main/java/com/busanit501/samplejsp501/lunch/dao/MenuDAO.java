@@ -1,6 +1,7 @@
-package com.busanit501.samplejsp501.todo.dao;
+package com.busanit501.samplejsp501.lunch.dao;
 
-import com.busanit501.samplejsp501.todo.domain.MenuVO;
+import com.busanit501.samplejsp501.todo.dao.ConnectionUtil;
+import com.busanit501.samplejsp501.lunch.doamin.MenuVO;
 import lombok.Cleanup;
 
 import java.sql.Connection;

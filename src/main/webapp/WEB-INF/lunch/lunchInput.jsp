@@ -5,7 +5,7 @@
   <title>JSP2 - lunchInput.jsp</title>
 </head>
 <body>
-<form action="/lunch" method="post">
+<form action="/lunch/register" method="post">
   <div>
   <input type="text" name="menuTitle" placeholder="메뉴를 입력해주세요.">
   </div>

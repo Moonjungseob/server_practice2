@@ -1,6 +1,6 @@
 package com.busanit501.samplejsp501.lunch;
 
-import com.busanit501.samplejsp501.todo.service.MenuService;
+import com.busanit501.samplejsp501.lunch.service.MenuService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

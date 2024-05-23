@@ -25,5 +25,14 @@ public enum MemberService {
     public void updateUUID(String mid, String uuid) throws Exception {
         memberDAO.updateUUID(mid, uuid);
     }
+    public MemberDTO selectUUID(String uuid) throws Exception {
+        MemberVO memberVO = memberDAO.selectUUID(uuid);
+        MemberDTO memberDTO = modelMapper.map(memberVO,MemberDTO.class);
+        return memberDTO;
+    }
+    public void insertMember(MemberDTO memberDTO) throws Exception {
+        MemberVO memberVO = modelMapper.map(memberDTO,MemberVO.class);
+        memberDAO.insertMember(memberVO);
+    }
 
 }

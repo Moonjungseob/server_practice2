@@ -1,8 +1,8 @@
-package com.busanit501.samplejsp501.todo.service;
+package com.busanit501.samplejsp501.lunch.service;
 
-import com.busanit501.samplejsp501.todo.dao.MenuDAO;
-import com.busanit501.samplejsp501.todo.domain.MenuVO;
-import com.busanit501.samplejsp501.todo.dto.MenuDTO;
+import com.busanit501.samplejsp501.lunch.dao.MenuDAO;
+import com.busanit501.samplejsp501.lunch.doamin.MenuVO;
+import com.busanit501.samplejsp501.lunch.dto.MenuDTO;
 import com.busanit501.samplejsp501.todo.util.MapperUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;

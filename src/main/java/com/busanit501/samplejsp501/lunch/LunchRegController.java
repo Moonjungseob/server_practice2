@@ -1,7 +1,7 @@
 package com.busanit501.samplejsp501.lunch;
 
-import com.busanit501.samplejsp501.todo.dto.MenuDTO;
-import com.busanit501.samplejsp501.todo.service.MenuService;
+import com.busanit501.samplejsp501.lunch.dto.MenuDTO;
+import com.busanit501.samplejsp501.lunch.service.MenuService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 
-@WebServlet(name = "Lunch", urlPatterns = "/lunch")
+@WebServlet(name = "LunchRegController", urlPatterns = "/lunch/register")
 public class LunchRegController extends HttpServlet {
   // 메뉴 입력을 받는 폼, get
   // 메뉴 로직 처리하는 , post

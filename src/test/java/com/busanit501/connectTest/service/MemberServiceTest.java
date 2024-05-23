@@ -28,4 +28,18 @@ public class MemberServiceTest {
     public  void updateUUID() throws Exception {
         memberService.updateUUID("lsy", "testuuid33333333333333333");
     }
+    @Test
+    public  void selectUUID() throws Exception {
+        MemberDTO memberDTO = memberService.selectUUID("c9267389-8e15-4707-b3dc-1fd5b1f3fc8b");
+        log.info("memberDTO : "+ memberDTO);
+    }
+    @Test
+    public  void insertMember() throws Exception {
+        MemberDTO memberDTO = MemberDTO.builder()
+                .mid("lsy05232")
+                .mpw("1234")
+                .mname("이상용05232")
+                .build();
+                memberService.insertMember(memberDTO);
+    }
 }

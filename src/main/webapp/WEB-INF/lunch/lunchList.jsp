@@ -8,7 +8,20 @@
 </head>
 <body>
 <ul>
-  <button><a href="/lunch">작성</a></button>
+  <h1>${lunchmemberDTO.mname}님 환영합니다.</h1>
+  <div>
+    <form method="post" action="/lunchnoauto">
+      <button type="submit">자동로그인해제</button>
+    </form>
+  </div>
+  <div>
+    <form method="post" action="/lunchlogout">
+      <button type="submit">로그아웃</button>
+    </form>
+  </div>
+
+
+  <button><a href="/lunch/register">작성</a></button>
   <%--  서버 컨트롤러에서 전달 받은 박스, 라벨 이름: list, --%>
   <%--  내용물: 디비에서 가져온 10개의 값--%>
   <c:forEach items="${list1}" var="dto">
